@@ -1,0 +1,14 @@
+# ESP-IDF build files
+build/
+**/build/
+
+# ESP-IDF temporary files
+sdkconfig.old
+managed_components/
+
+# Python
+__pycache__/
+*.pyc
+
+# IDE
+.vscode/ipch/

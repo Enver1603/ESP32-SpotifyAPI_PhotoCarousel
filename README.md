@@ -39,6 +39,7 @@ The firmware is in the [`softAP/`](softAP/) directory. It started from Espressif
 - [Known Limitations](#known-limitations)
 - [Troubleshooting](#troubleshooting)
 - [Security Notes](#security-notes)
+- [License](#license)
 
 ---
 
@@ -361,11 +362,13 @@ Under **Example Configuration**:
 | Option | Default in this repo | Notes |
 |---|---|---|
 | WiFi SSID | `heart_steel` | Name of the setup network |
-| WiFi Password | *(set in sdkconfig)* | 8–63 chars for WPA2; leave empty for an open AP |
+| WiFi Password | `mypassword` | **Placeholder, change it.** 8–63 chars for WPA2; leave empty for an open AP |
 | WiFi Channel | `1` | 1–13 |
 | Maximal STA connections | `4` | Clients allowed on the setup AP |
 | Enable GTK Rekeying | `y` | |
 | GTK rekey interval | `600` s | |
+
+> **Set your own AP password before flashing.** The committed `sdkconfig` only contains the placeholder `mypassword`. If you fork this repository, don't commit your real password back; `git update-index --skip-worktree softAP/sdkconfig` keeps local changes out of commits.
 
 The `sdkconfig` in the repo already has PSRAM, the custom partition table, the certificate bundle, LVGL with 16-bit colour, Montserrat 14 and the other required options enabled.
 
@@ -513,6 +516,14 @@ These compile-time constants are in [`softap_example_main.c`](softAP/main/softap
 
 - Credentials are stored **unencrypted** in NVS. Anyone with physical access can read them from flash. Enable NVS encryption / flash encryption if this matters to you.
 - The setup portal uses **plain HTTP** over the WPA2-protected AP. Use a strong AP password.
-- The AP password is set in `sdkconfig`. If this repository is public, change it before committing, or keep `sdkconfig` out of version control.
+- The AP password is set in `sdkconfig`. The repository ships with the placeholder `mypassword`; replace it locally and don't commit your real password.
 - Secrets (tokens, passwords) are never printed to the serial log, and token buffers are zeroed after use.
 - All outbound Spotify traffic uses HTTPS, verified against the ESP-IDF certificate bundle.
+
+---
+
+## License
+
+This project is released under the [MIT License](LICENSE).
+
+It is based on Espressif's ESP-IDF `softAP` example (public domain / CC0). Third-party components (ESP-IDF, LVGL, cJSON, esp_jpeg, libjpeg-turbo) are covered by their own licenses.
